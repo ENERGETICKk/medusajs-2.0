@@ -134,8 +134,8 @@ const medusaConfig = {
       },
     }] : [])
   ],
-  plugins: [
-  ...(MEILISEARCH_HOST && MEILISEARCH_ADMIN_KEY ? [{
+plugins: [
+    ...(MEILISEARCH_HOST && MEILISEARCH_ADMIN_KEY ? [{
       resolve: '@rokmohar/medusa-plugin-meilisearch',
       options: {
         config: {
@@ -156,7 +156,20 @@ const medusaConfig = {
           }
         }
       }
-    }] : [])
+    }] : []),
+    {
+      resolve: "medusa-plugin-printful",
+      options: {
+        printfulAccessToken: process.env.PRINTFUL_ACCESS_TOKEN,
+        storeId: process.env.PRINTFUL_STORE_ID,
+        backendUrl: process.env.BACKEND_URL || "http://localhost:9000",
+        enableWebhooks: false,
+        enableSync: true,
+        productTags: true,
+        productCategories: true,
+        confirmOrder: false
+      }
+    }
   ]
 };
 
